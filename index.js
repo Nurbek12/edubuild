@@ -18,7 +18,7 @@ const server = createServer(app)
 app.use(cors())
 app.use(express.json({ limit: '50mb' }))
 app.use(express.urlencoded({ limit: '50mb', extended: true, parameterLimit:50000 }))
-// app.use(express.static(path.join(dirname, 'dist')))
+app.use(express.static(path.join(dirname, 'dist')))
 
 app.use('/', routes)
 app.use('/auth', authRouter)
@@ -27,9 +27,9 @@ app.use('/group', groupRouter)
 app.use('/science', scienceRouter)
 app.use('/test', testRouter)
 
-// app.use('*', async (req, res) => {
-//     res.sendFile(join(dirname, 'dist', 'index.html'))
-// })
+app.use('*', async (req, res) => {
+    res.sendFile(join(dirname, 'dist', 'index.html'))
+})
 
 server.listen(port, () => {
     database()
